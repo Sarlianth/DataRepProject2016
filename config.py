@@ -1,3 +1,6 @@
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 ##activates the cross-site request forgery prevention
 WTF_CSRF_ENABLED = True
 ##only needed when CSRF is enabled, and is used to create a cryptographic token that is used to validate a form
@@ -10,9 +13,6 @@ OPENID_PROVIDERS = [
     {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
-	
-import os
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 ##required by the Flask-SQLAlchemy extension. Path to our database file
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
