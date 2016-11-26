@@ -12,7 +12,7 @@ Initially, we considered three different applications:
 2. A [Pastebin](http://pastebin.com/) alternative.
 3. A [Stackoverflow](https://www.stackoverflow.com/) alternative.
 
-In our early discussions, we excluded option 1 as it would be too difficult to construct in the short time we had to complete the project.
+In our early discussions, we excluded option 3 as it would be too difficult to construct in the short time we had to complete the project.
 That left option 1 and 2.
 We chose 1 after some consideration, as we were more interested in the idea. However, we decided it's not going to be identical to Twitter but we will highly base on it.
 
@@ -27,6 +27,7 @@ The team members are:
 - Robert Kiliszewski
 - Dominykas Urbonas
 - Adrian Golias
+
 All team members contributed to all aspects of the project.
 However, Dominykas was given the lead in documentation, Adrian Sypos the lead in Python coding, and Robert with Adrian Golias was given the lead in front-end development (HTML, CSS) and user experience.
 
