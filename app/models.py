@@ -6,9 +6,33 @@ class User(db.Model):
     nickname = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+
+	##return True unless the object represents a user that should not be allowed to authenticate for some reason.
+    @property
+    def is_authenticated(self):
+        return True
+	
+	##return True for users unless they are inactive
+    @property
+    def is_active(self):
+        return True
+
+	##return True only for fake users
+    @property
+    def is_anonymous(self):
+        return False
+		
+	##return a unique identifier for the user
+    def get_id(self):
+        try:
+            return unicode(self.id)  # python 2
+        except NameError:
+            return str(self.id)  # python 3
+			
 	##method that tells Python how to print objects of this class
     def __repr__(self):
         return '<User %r>' % (self.nickname)
+		
 ##post class with (id, body, timestamd and user_id as a foreignKey so we know which user wrote the post)
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)

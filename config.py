@@ -8,10 +8,11 @@ SECRET_KEY = 'you-will-never-guess'
 
 ##providers for openID
 OPENID_PROVIDERS = [
-    {'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id'},
+	##we are using yahoo to test application
     {'name': 'Yahoo', 'url': 'https://me.yahoo.com'},
     {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
+	##haven't been tested yet
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
 
 ##required by the Flask-SQLAlchemy extension. Path to our database file
