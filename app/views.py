@@ -23,20 +23,9 @@ def before_request():
 @login_required
 def index():
     user = g.user
-    posts = [
-        {
-            'author': {'nickname': 'Robert'},
-            'body': 'I need to work on the front-end!'
-        },
-        {
-            'author': {'nickname': 'Dom'},
-            'body': 'I am working on the documentation!'
-        }
-    ]
     return render_template('index.html',
                            title='Home',
-                           user=user,
-                           posts=posts)
+                           user=user)
 
 ##View function to display user profile
 @app.route('/user/<nickname>')
@@ -85,6 +74,7 @@ def after_login(resp):
         nickname = resp.nickname
         if nickname is None or nickname == "":
             nickname = resp.email.split('@')[0]
+        nickname = User.make_unique_nickname(nickname)
         user = User(nickname=nickname, email=resp.email)
         db.session.add(user)
         db.session.commit()
@@ -98,7 +88,7 @@ def after_login(resp):
 @app.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit():
-    form = EditForm()
+    form = EditForm(g.user.nickname)
     if form.validate_on_submit():
         g.user.nickname = form.nickname.data
         g.user.about_me = form.about_me.data

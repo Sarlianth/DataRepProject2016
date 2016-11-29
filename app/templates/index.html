@@ -19,12 +19,10 @@
 	{% block content %}
 		<h1>&nbsp;&nbsp;Hi, {{ user.nickname }}!</h1>
 		</br>
-		<h2>&nbsp;&nbsp;Recent posts</h2></br>
-		{% for post in posts %}
-		<p>
-		  &nbsp;&nbsp;{{ post.author.nickname }} says: <b>{{ post.body }}</b>
-		</p>
-		{% endfor %}
+		<h4><p>This app lets users login with OpenID creating unique users in our database. 
+		<br>You can change your username and add a description about yourself. 
+		<br>As well as look at other people profiles listed below.</p></h4>
+		<h2>&nbsp;&nbsp;Users in database:</h2></br>
 	{% endblock %}
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
