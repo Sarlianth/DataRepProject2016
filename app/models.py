@@ -18,7 +18,7 @@ class User(db.Model):
     @property
     def is_active(self):
         return True
-
+	
 	##return True only for fake users
     @property
     def is_anonymous(self):
@@ -34,7 +34,7 @@ class User(db.Model):
     def avatar(self, size):
         return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % \
             (md5(self.email.encode('utf-8')).hexdigest(), size)
-        
+		
 ##method to create unique nickname, in case of a duplicate
     @staticmethod
     def make_unique_nickname(nickname):

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask_login import login_user, logout_user, current_user, login_required
-from app import app, db, lm, oid
+from app import app, db, lm, oid, models
 from .forms import LoginForm, EditForm
 from .models import User
 from datetime import datetime
@@ -23,9 +23,11 @@ def before_request():
 @login_required
 def index():
     user = g.user
+		
     return render_template('index.html',
                            title='Home',
-                           user=user)
+                           user=user,
+						   users=models.User.query.all())
 
 ##View function to display user profile
 @app.route('/user/<nickname>')
@@ -35,13 +37,8 @@ def user(nickname):
     if user == None:
         flash('User %s has not been found.' % nickname)
         return redirect(url_for('index'))
-    posts = [
-        {'author': user, 'Post': 'Test post #1'},
-        {'author': user, 'Post': 'Test post #2'}
-    ]
     return render_template('user.html',
-                           user=user,
-                           posts=posts)
+                           user=user)
 						   
 ##login view function
 @app.route('/login', methods=['GET', 'POST'])
