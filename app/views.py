@@ -103,3 +103,10 @@ def edit():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+	
+##View function to display user profile
+@app.route('/game')
+@login_required
+def game():
+    return render_template('game.html',
+                           title='Game')

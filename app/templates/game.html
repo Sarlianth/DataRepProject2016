@@ -1,26 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Latest compiled and minified CSS -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </head>
-  <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
-    <script>
-	function startGame() {
-    myGamePiece = new component(30, 30, "red", 10, 120);
+</head>
+<body>
+<script>
+
+var myGamePiece;
+var myObstacles = [];
+var myScore;
+var hidden = false;
+
+function startGame() {
+    myGamePiece = new component(45, 45, "green", 10, 120);
     myGamePiece.gravity = 0.05;
     myScore = new component("30px", "Consolas", "black", 280, 40, "text");
     myGameArea.start();
+	<!--http://stackoverflow.com/questions/8685107/hiding-a-button-in-javascript-->
+	hidden = !hidden;
+        if(hidden) {
+            document.getElementById('startBtn').style.visibility = 'hidden';
+            document.getElementById('restartBtn').style.visibility = 'hidden';
+        } else {
+            document.getElementById('startBtn').style.visibility = 'visible';
+            document.getElementById('restartBtn').style.visibility = 'visible';
+        }
 }
 
 var myGameArea = {
@@ -31,15 +47,114 @@ var myGameArea = {
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
-    },
+        this.interval = setInterval(updateGameArea, 20);
+        },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
+
+function component(width, height, color, x, y, type) {
+    this.type = type;
+    this.score = 0;
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;
+    this.gravity = 5;
+    this.gravitySpeed = 5;
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (this.type == "text") {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.x, this.y);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.newPos = function() {
+        this.gravitySpeed += this.gravity;
+        this.x += this.speedX;
+        this.y += this.speedY + this.gravitySpeed;
+        this.hitBottom();
+    }
+    this.hitBottom = function() {
+        var rockbottom = myGameArea.canvas.height - this.height;
+        if (this.y > rockbottom) {
+            this.y = rockbottom;
+            this.gravitySpeed = 0;
+        }
+    }
+    this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            crash = false;
+        }
+		else{
+            document.getElementById('restartBtn').style.visibility = 'visible';
+		}
+        return crash;
+    }
+}
+
+function updateGameArea() {
+    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+    for (i = 0; i < myObstacles.length; i += 1) {
+        if (myGamePiece.crashWith(myObstacles[i])) {
+            return;
+        } 
+    }
+    myGameArea.clear();
+    myGameArea.frameNo += 1;
+    if (myGameArea.frameNo == 1 || everyinterval(50)) {
+        x = myGameArea.canvas.width;
+        minHeight = 50;
+        maxHeight = 200;
+        height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+        minGap = 80;
+        maxGap = 200;
+        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+        myObstacles.push(new component(13, height, "red", x, 0));
+        myObstacles.push(new component(13, x - height - gap, "red", x, height + gap));
+    }
+    for (i = 0; i < myObstacles.length; i += 1) {
+        myObstacles[i].x += -6;
+        myObstacles[i].update();
+    }
+    myScore.text="SCORE: " + myGameArea.frameNo;
+    myScore.update();
+    myGamePiece.newPos();
+    myGamePiece.update();
+}
+
+function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {
+		return true;
+	}
+	else{
+		return false;
+	}
+    
+}
+
+function accelerate(n) {
+    myGamePiece.gravity = n;
+}
 </script>
-	
-		
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  </body>
+<button class="btn btn-primary dropdown-toggle" id="accBtn" onmousedown="accelerate(-0.5)" onmouseup="accelerate(0.3)">ACCELERATE</button>
+<button class="btn btn-primary dropdown-toggle" id="startBtn" onClick="startGame();">Start game</button>
+<button class="btn btn-primary dropdown-toggle" id="restartBtn" onClick="window.location.reload()">Restart game</button>
+</body>
 </html>

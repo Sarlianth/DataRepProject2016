@@ -40,6 +40,12 @@
     <form class="navbar-form navbar-left" action="" method="post" name="login">
         {{ form.hidden_tag() }}
         <p>
+			<h4>
+			You have to login using OpenID to create new user in our database based on the information that will be gained trough OpenID (username, email).</br>
+			Once you login to the app you can view other peoples profiles and edit your own one.<br>
+			After successfully logging into our app you will also be able to play a simple game similar to flappy-bird<br>
+			</h4>
+			<br><br>
             <h4>Please enter your OpenID, or select one of the providers below:<br></h4>
             {{ form.openid(size=80) }}
             {% for error in form.openid.errors %}
