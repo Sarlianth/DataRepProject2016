@@ -1,4 +1,4 @@
-# ARDA Blog WebApp
+# ARDA Project Web Application
 #### Data Representation and Querying Project 2016
 
 This repository contains code and documentation about our third year project for Dara Representation and Querying module.
