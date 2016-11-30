@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     {% if title %}
-    <title>{{ title }} - ARDA Blog</title>
+    <title>{{ title }} - ARDA Project</title>
     {% else %}
-    <title>ARDA Blog</title>
+    <title>ARDA Project</title>
     {% endif %}
     </head>
 	<!-- Latest compiled and minified CSS -->
@@ -18,23 +18,29 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
     <!-- extend base layout -->
 {% extends "base.html" %}
 
 {% block content %}
-  <table>
-      <tr valign="top">
-          <td><img src="{{ user.avatar(128) }}"></td>
+  <table class="table table-bordered table-inverse">
+          <td width="10%">
+			<img src="{{ user.avatar(128) }}">
+		  </td>
           <td>
-              <h1>User: {{user.nickname}}</h1>
-              {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-              {% if user.last_seen %}<p><i>Last seen: {{ user.last_seen }}</i></p>{% endif %}
-              {% if user.id == g.user.id %}<p><a href="{{ url_for('edit') }}">Edit profile</a></p>{% endif %}
+		  <table>
+			  <tr><h1>Username: {{user.nickname}}</h1></tr>
+			  <hr> 
+              <tr>{% if user.about_me %}<p class="text-primary"><h4><b>About me:</b><i> {{ user.about_me }}</h3></p></i>{% endif %}</tr>
+			  <hr>
+              <tr>{% if user.last_seen %}<p class="text-warning"><em><b>Last online:</b> {{ user.last_seen }}</p></em>{% endif %}</tr>
+			  <tr><button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('edit') }}'">Edit profile</button></tr>
+		  </table>
           </td>
-      </tr>
   </table>
   <hr>
+  
+  <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('index') }}'">Go back</button>
 {% endblock %}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

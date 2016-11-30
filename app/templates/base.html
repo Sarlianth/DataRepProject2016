@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     {% if title %}
-    <title>{{ title }} - ARDA Blog</title>
+    <title>{{ title }} - ARDA Project</title>
     {% else %}
-    <title>ARDA Blog</title>
+    <title>ARDA Project</title>
     {% endif %}
     </head>
 
@@ -21,20 +21,20 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
     <div>
-	<nav class="navbar navbar-inverse"><font color="White">&nbsp;&nbsp;&nbsp;ARDA Blog Menu: &nbsp;&nbsp;&nbsp;</font>
-		   <button type="button" class="btn btn-default navbar-btn"><a href="{{ url_for('index') }}">Home</a></button>
+	<nav class="navbar navbar-inverse"><font color="White">&nbsp;&nbsp;&nbsp;ARDA Project Menu: &nbsp;&nbsp;&nbsp;</font>
+		   <button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('index') }}'">Home</button>
 		{% if g.user.is_authenticated %}
-		&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn"><a href="{{ url_for('user', nickname=g.user.nickname) }}">Your Profile</a></button>
-        &nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn"><a href="{{ url_for('logout') }}">Logout</a></button>
+		&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('user', nickname=g.user.nickname) }}'">Your Profile</button>
+		&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
         {% endif %}
 		</nav>
 	</div>
     <hr>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <ul>
+        <ul class="list-group-item list-group-item-danger">
         {% for message in messages %}
             <li>{{ message }} </li>
         {% endfor %}

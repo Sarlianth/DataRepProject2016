@@ -4,6 +4,7 @@ from app import app, db, lm, oid, models
 from .forms import LoginForm, EditForm
 from .models import User
 from datetime import datetime
+from array import array
 
 @lm.user_loader
 def load_user(id):
@@ -23,11 +24,11 @@ def before_request():
 @login_required
 def index():
     user = g.user
-		
+	
     return render_template('index.html',
                            title='Home',
                            user=user,
-						   users=models.User.query.all())
+						   users=models.User.query.order_by('nickname asc').all())
 
 ##View function to display user profile
 @app.route('/user/<nickname>')

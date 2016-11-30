@@ -13,30 +13,31 @@
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
   </head>
   <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
-    {% extends "base.html" %}
-	{% block content %}
-		<h1>&nbsp;&nbsp;Hi, {{ user.nickname }}!</h1>
-		</br>
-		<h4>
-		<p>
-			You have successfully logged in into our app. New account has been added into our database.</br>
-			Your username is: '{{user.nickname}}' and your OpenID key is '{{user.email}}'</br>
-			If you wish to change your nickname and add a little info about you please click <a href="{{ url_for('edit') }}">here</a>.
-			
-		</p>
-		</h4>
-		<h3>&nbsp;&nbsp;Users in database:</h3>
-		<div class="list-group">
-		{% for u in users %}
-		<!-- Thank God for Stackoverflow http://stackoverflow.com/questions/23988561/jinja-variables-within-the-flask-url-for-function -->
-		<a class="list-group-item list-group-item-action" href={{ url_for('user', nickname=u.nickname) }}> {{ u.nickname }} </a>
-		{% endfor %}
-		</div>
-		
-	{% endblock %}
+    <script>
+	function startGame() {
+    myGamePiece = new component(30, 30, "red", 10, 120);
+    myGamePiece.gravity = 0.05;
+    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 480;
+        this.canvas.height = 270;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+    },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+</script>
+	
 		
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
