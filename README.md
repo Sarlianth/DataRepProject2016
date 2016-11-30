@@ -4,17 +4,18 @@
 This repository contains code and documentation about our third year project for Dara Representation and Querying module.
 
 ### Project Overview
-We have created a Single-Page Web Application (SPA) that is a blog allowing users to post and read entries.
-This application was selected after some deliberation.
+We have created a Single-Page Web Application (SPA) 
+This web application is a database that stores various user profiles upon creation using the login method, it allows you to view other users profiles aswell as play games on the web application.
 Initially, we considered three different applications:
 
 1. A [Twitter](http://twitter.com/) alternative.
 2. A [Pastebin](http://pastebin.com/) alternative.
 3. A [Stackoverflow](https://www.stackoverflow.com/) alternative.
 
-In our early discussions, we excluded option 3 as it would be too difficult to construct in the short time we had to complete the project.
-That left option 1 and 2.
-We chose 1 after some consideration, as we were more interested in the idea. However, we decided it's not going to be identical to Twitter but we will highly base on it.
+In our early discussions, we excluded option three as it would be too difficult to construct in the short time we had to complete the project.
+That left option one and two or our own idea.
+We chose our own idea as none of the other applications seemed appealing for the project.
+We thought that own idea would show more of our ability to create a web application rather than reuse other examples.
 
 The project was guided by the following excerpt from the project instructions:
 >You are required to develop a single-page web application(SPA) written in the programming language Python using the Flask framework. You must devise an idea for a web application, write the software, write documentation explaining how the application works, and write a short user guide for it.
@@ -39,6 +40,18 @@ At each meeting, Dominykas took notes using their laptop and assigned the tasks 
 
 
 ### How to run the application
+
+The following extensions have to be installed in order to run the web application:
+
+pip install flask
+pip install flask-login
+pip install flask-openid
+pip install flask-mail
+pip install flask-sqlalchemy
+pip install sqlalchemy-migrate
+pip install flask-whooshalchemy
+pip install flask-wtf
+
 The application is written using the [Flask](http://flask.pocoo.org/) library in [Python 3](https://www.python.org).
 Both must be installed to run the project.
 
@@ -51,6 +64,22 @@ Once these prerequisites are installed, the application can be run locally:
 $ python run.py
 ```
 Once the application is running, it can be accessed by pointing your browser at http://127.0.0.1:5000/ .
+
+
+## How to use application
+
+Within opening the web application page you are asked to sign into the web appllication using one of the following as username OpenID -
+Flickr,Yahoo,AOL.
+
+Select one of the providers and select login.
+
+Once logged in there is a drop down menu right under the welcoming paragraph with information of all the users within the database.
+
+You can edit your own profile and view other peoples profiles  that are on the database aswell.
+
+Login in will also give you acess to the game on the web page and you can play it.
+
+
 
 ### Architecture
 This web application runs in [Python 3](https://www.python.org) using the [Flask](http://flask.pocoo.org/) web micro-framework and uses SQLite as a database.
