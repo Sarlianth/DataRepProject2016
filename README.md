@@ -91,6 +91,4 @@ The project was based upon tutorial of Miquel Grinberg https://blog.miguelgrinbe
 
 Through the duration of the entire project Stack Overflow http://stackoverflow.com/ has been used to help us with little bugs or mistakes that we might have made or encouneterd. Also helped us alot with understanding certain concepts of working with Flask and Python itself.
 
-We as a group recommend to use both of above references as a baseline to learn how to work with Flask, Python and understand how it works, which will make it extremely easy to do more advanced things afterwards.
-
-
+We as a group recommend to use both of above references as a baseline to learn how to work with Flask, Python and understand how it works, which will make it extremely easy to do more advanced and complex programming afterwards.
