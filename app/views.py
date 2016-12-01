@@ -14,9 +14,9 @@ def load_user(id):
 def before_request():
     g.user = current_user
     if g.user.is_authenticated:
-        g.user.last_seen = datetime.utcnow()
-        db.session.add(g.user)
-        db.session.commit()
+		g.user.last_seen = datetime.utcnow()
+		db.session.add(g.user)
+		db.session.commit()
 	
 ## index view function suppressed for brevity
 @app.route('/')
@@ -24,7 +24,6 @@ def before_request():
 @login_required
 def index():
     user = g.user
-	
     return render_template('index.html',
                            title='Home',
                            user=user,
@@ -67,6 +66,7 @@ def after_login(resp):
         flash('Invalid login. Please try again.')
         return redirect(url_for('login'))
     user = User.query.filter_by(email=resp.email).first()
+	
 	##if statements for validation, if no username provided we can't login
     if user is None:
         nickname = resp.nickname
@@ -76,6 +76,7 @@ def after_login(resp):
         user = User(nickname=nickname, email=resp.email)
         db.session.add(user)
         db.session.commit()
+		
     remember_me = False
     if 'remember_me' in session:
         remember_me = session['remember_me']

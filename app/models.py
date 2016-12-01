@@ -1,6 +1,7 @@
 ##creating the database model of user with 3 fields (id, nickname and email [where id is the primary key])	
 from app import db
 from hashlib import md5
+
 ##user class with (id, nickname, email and post object)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +36,7 @@ class User(db.Model):
         return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % \
             (md5(self.email.encode('utf-8')).hexdigest(), size)
 		
-##method to create unique nickname, in case of a duplicate
+	##method to create unique nickname, in case of a duplicate
     @staticmethod
     def make_unique_nickname(nickname):
         if User.query.filter_by(nickname=nickname).first() is None:

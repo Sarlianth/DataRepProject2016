@@ -1,12 +1,15 @@
+##creating the form models
 from flask.ext.wtf import Form
 from wtforms import StringField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length
 from app.models import User
 
+##login form model
 class LoginForm(Form):
     openid = StringField('openid', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=False)
-	
+
+##edit form model
 class EditForm(Form):
     nickname = StringField('nickname', validators=[DataRequired()])
     about_me = TextAreaField('about_me', validators=[Length(min=0, max=140)])
@@ -15,7 +18,7 @@ class EditForm(Form):
         Form.__init__(self, *args, **kwargs)
         self.original_nickname = original_nickname
 
-##determine if the nickname has changed or not
+	##determine if the nickname has changed or not
     def validate(self):
         if not Form.validate(self):
             return False
