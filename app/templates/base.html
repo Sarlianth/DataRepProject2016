@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    {% if title %}
-    <title>{{ title }} - ARDA Project</title>
-    {% else %}
-    <title>ARDA Project</title>
-    {% endif %}
-    </head>
+	<head>
+		<!-- Meta Data-->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Meta Data for device scaling -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Gather jinja2 title if available -->
+		{% if title %}
+		<!-- Display the title-->
+		<title>{{ title }} - ARDA Project</title>
+		<!-- In case jinja2 title isn't available -->
+		{% else %}
+		<!-- Display default title -->
+		<title>ARDA Project</title>
+		{% endif %}
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</head>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  </head>
-  <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
-    <div>
-	<nav class="navbar navbar-inverse"><font color="White">&nbsp;&nbsp;&nbsp;ARDA Project Menu: &nbsp;&nbsp;&nbsp;</font>
-		<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('index') }}'">Home</button>
-		{% if g.user.is_authenticated %}
-		&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('user', nickname=g.user.nickname) }}'">Your Profile</button>
-		&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
-        {% endif %}
-		</nav>
-	</div>
-    <hr>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
+	<body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
+		<div>
+			<!-- Navigation bar for menu buttons and individual button action -->
+			<nav class="navbar navbar-inverse"><font color="White">&nbsp;&nbsp;&nbsp;ARDA Project Menu: &nbsp;&nbsp;&nbsp;</font>
+				<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('index') }}'">Home</button>
+				<!-- Jinja2 Authentication check -->
+				{% if g.user.is_authenticated %}
+				<!-- If user authenticated/signed into the system, allow them to see the rest of the menu they can interact with -->
+				&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('user', nickname=g.user.nickname) }}'">Your Profile</button>
+				&nbsp;&nbsp;<button type="button" class="btn btn-default navbar-btn" onclick="location.href='{{ url_for('logout') }}'">Logout</button>
+				{% endif %}
+			</nav>
+		</div>
+		<!-- Horisontal line to separate menu from application output -->
+		<hr>
+		<!-- Gather jinja2 messages stored -->
+		{% with messages = get_flashed_messages() %}
+		<!-- If jinja2 gathered any messages display the list -->
+		{% if messages %}
+		<!-- Message list -->
         <ul class="list-group-item list-group-item-danger">
-        {% for message in messages %}
-            <li>{{ message }} </li>
-        {% endfor %}
+			<!-- Loop through the messages and list them in the paragraph -->
+			{% for message in messages %}
+            <li>{{ message }}</li>
+			{% endfor %}
         </ul>
-      {% endif %}
-    {% endwith %}
-    {% block content %}
-	{% endblock %}
-  </body>
+		<!-- End jinja2 session -->
+		{% endif %}
+		{% endwith %}
+		{% block content %}
+		{% endblock %}
+	</body>
 </html>
