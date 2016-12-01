@@ -17,7 +17,7 @@ That left option one and two or our own idea.
 We chose our own idea as none of the other applications seemed appealing for the project.
 We thought that own idea would show more of our ability to create a web application rather than reuse other examples.
 
-The project was guided by the following excerpt from the project instructions:
+The project was guided by the following except from the project instructions:
 >You are required to develop a single-page web application(SPA) written in the programming language Python using the Flask framework. You must devise an idea for a web application, write the software, write documentation explaining how the application works, and write a short user guide for it.
 
 
@@ -85,3 +85,12 @@ Login in will also give you acess to the game on the web page and you can play i
 This web application runs in [Python 3](https://www.python.org) using the [Flask](http://flask.pocoo.org/) web micro-framework and uses SQLite as a database.
 Python 3 and Flask were requirements for the project, but SQLite was selected by the team.
 We chose SQLite as it is easy to use and does not require much setup to get the web application up and running.
+
+## References
+The project was based upon tutorial of Miquel Grinberg https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world which we give a credit for helping us understand the Flask a lightweight Python web framework and teach us how to work with it using his tutorials.
+
+Through the duration of the entire project Stack Overflow http://stackoverflow.com/ has been used to help us with little bugs or mistakes that we might have made or encouneterd. Also helped us alot with understanding certain concepts of working with Flask and Python itself.
+
+We as a group recommend to use both of above references as a baseline to learn how to work with Flask, Python and understand how it works, which will make it extremely easy to do more advanced things afterwards.
+
+
