@@ -1,66 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    {% if title %}
-    <title>{{ title }} - ARDA Project</title>
-    {% else %}
-    <title>ARDA Blog</title>
-    {% endif %}
-    </head>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </head>
-  <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
-    <!-- extend base layout -->
-{% extends "base.html" %}
+	<head>
+		<!-- Meta Data-->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Meta Data for device scaling -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Gather jinja2 title if available -->
+		{% if title %}
+		<!-- Display the title-->
+		<title>{{ title }} - ARDA Project</title>
+		<!-- In case jinja2 title isn't available -->
+		{% else %}
+		<!-- Display default title -->
+		<title>ARDA Project</title>
+		{% endif %}
 
-{% block content %}
-	<script type="text/javascript">
-    function set_openid(openid, pr)
-    {
-        u = openid.search('<username>');
-        if (u != -1) {
-            // openid requires username
-            user = prompt('Enter your ' + pr + ' username:');
-            openid = openid.substr(0, u) + user;
-        }
-        form = document.forms['login'];
-        form.elements['openid'].value = openid;
-    }
-    </script>
-  <h1>Sign In</h1>
-    <form class="navbar-form navbar-left" action="" method="post" name="login">
-        {{ form.hidden_tag() }}
-        <p>
-			<h4>
-			You have to login using OpenID to create new user in our database based on the information that will be gained trough OpenID (username, email).</br>
-			Once you login to the app you can view other peoples profiles and edit your own one.<br>
-			After successfully logging into our app you will also be able to play a simple game similar to flappy-bird<br>
-			</h4>
-			<br><br>
-            <h4>Please enter your OpenID, or select one of the providers below:<br></h4>
-            {{ form.openid(size=80) }}
-            {% for error in form.openid.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}<br>
-			{% for pr in providers %}
-				 <button type="button" class="btn btn-default navbar-btn" onclick="javascript:set_openid('{{ pr.url }}', '{{ pr.name }}');">{{ pr.name }}</button>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me }} Remember Me</p>
-        <p><button type="submit" class="btn btn-default navbar-btn">Sign in</button></p>
-    </form>
-{% endblock %}
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</head>
+  
+	<!-- Styled Body -->
+	<body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
+		<!-- Extending base layout using jinja2-->
+		{% extends "base.html" %}
+		{% block content %}
+		<!-- Java script for use of openID -->
+		<script type="text/javascript">
+			function set_openid(openid, pr){
+				u = openid.search('<username>');
+				if (u != -1) {
+					// Openid requires username
+					user = prompt('Enter your ' + pr + ' username:');
+					openid = openid.substr(0, u) + user;
+				}// End of if
+				form = document.forms['login'];
+				form.elements['openid'].value = openid;
+			}// End of set_openid
+		</script>
+		
+		<h1>Sign In</h1>
+		<!-- Form to let user to sign in -->
+		<form class="navbar-form navbar-left" action="" method="post" name="login">
+			{{ form.hidden_tag() }}
+			<!-- Paragraph to display simple instruction for the user, and let user to sign in -->
+			<p>
+				<h4>
+					You have to login using OpenID to create new user in our database based on the information that will be gained trough OpenID (username, email).</br>
+					Once you login to the app you can view other peoples profiles and edit your own one.<br>
+					After successfully logging into our app you will also be able to play a simple game similar to flappy-bird<br>
+				</h4>
+				<br><br>
+				<!-- Login/Sign in menu using jinja2 and openID javascript-->
+				<h4>Please enter your OpenID, or select one of the providers below:<br></h4>
+				{{ form.openid(size=80) }}
+				{% for error in form.openid.errors %}
+					<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}<br>
+				{% for pr in providers %}
+					 <button type="button" class="btn btn-default navbar-btn" onclick="javascript:set_openid('{{ pr.url }}', '{{ pr.name }}');">{{ pr.name }}</button>
+				{% endfor %}
+			</p>
+			<!-- Option to let user to be remembered for next time use -->
+			<p>{{ form.remember_me }} Remember Me</p>
+			<p><button type="submit" class="btn btn-default navbar-btn">Sign in</button></p>
+		</form>
+		{% endblock %}
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  </body>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</body>
 </html>

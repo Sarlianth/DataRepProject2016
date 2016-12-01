@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    {% if title %}
-    <title>{{ title }} - ARDA Project</title>
-    {% else %}
-    <title>ARDA Project</title>
-    {% endif %}
-    </head>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </head>
-  <body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
-    <!-- extend base layout -->
-{% extends "base.html" %}
+	<head>
+		<!-- Meta Data-->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Meta Data for device scaling -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Gather jinja2 title if available -->
+		{% if title %}
+		<!-- Display the title-->
+		<title>{{ title }} - ARDA Project</title>
+		<!-- In case jinja2 title isn't available -->
+		{% else %}
+		<!-- Display default title -->
+		<title>ARDA Project</title>
+		{% endif %}
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</head>
+	
+	<!-- Styled body -->
+	<body style='margin-top:10px;margin-left:10px;margin-right:10px;'>
+		<!-- Extending base layout using jinja2-->
+		{% extends "base.html" %}
+		{% block content %}
+		
+		<!-- Table to display user profile -->
+		<table class="table table-bordered table-inverse">
+			<!-- Table column to display avatar image -->
+			<td width="10%">
+				<img src="{{ user.avatar(128) }}">
+			</td>
+			<!-- Table column -->
+			<td>
+				<!-- Table to display private user data/about me -->
+				<table>
+					<tr><h1>Username: {{user.nickname}}</h1></tr>
+					<hr> 
+					<tr>{% if user.about_me %}<p class="text-primary"><h4><b>About me:</b><i> {{ user.about_me }}</h3></p></i>{% endif %}</tr>
+					<hr>
+					<tr>{% if user.last_seen %}<p class="text-warning"><em><b>Last online:</b> {{ user.last_seen }}</p></em>{% endif %}</tr>
+					<!-- Button to let user to edit their own profile -->
+					<tr><button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('edit') }}'">Edit profile</button></tr>
+				</table>
+			</td>
+		</table>
+		<hr>
+		<!-- Return Button -->
+		<button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('index') }}'">Go back</button>
+		{% endblock %}
 
-{% block content %}
-  <table class="table table-bordered table-inverse">
-          <td width="10%">
-			<img src="{{ user.avatar(128) }}">
-		  </td>
-          <td>
-		  <table>
-			  <tr><h1>Username: {{user.nickname}}</h1></tr>
-			  <hr> 
-              <tr>{% if user.about_me %}<p class="text-primary"><h4><b>About me:</b><i> {{ user.about_me }}</h3></p></i>{% endif %}</tr>
-			  <hr>
-              <tr>{% if user.last_seen %}<p class="text-warning"><em><b>Last online:</b> {{ user.last_seen }}</p></em>{% endif %}</tr>
-			  <tr><button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('edit') }}'">Edit profile</button></tr>
-		  </table>
-          </td>
-  </table>
-  <hr>
-  
-  <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('index') }}'">Go back</button>
-{% endblock %}
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  </body>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</body>
 </html>
