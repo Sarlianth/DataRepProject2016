@@ -14,9 +14,9 @@ def load_user(id):
 def before_request():
     g.user = current_user
     if g.user.is_authenticated:
-		g.user.last_seen = datetime.utcnow()
-		db.session.add(g.user)
-		db.session.commit()
+        g.user.last_seen = datetime.utcnow()
+        db.session.add(g.user)
+        db.session.commit()
 	
 ## index view function suppressed for brevity
 @app.route('/')
